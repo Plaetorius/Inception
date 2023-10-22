@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.resume {
+    background: #e0e0e0;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow:  20px 20px 60px #d5d5d5, 
+                -20px -20px 60px #ffffff;
+}
+
+.header h1, .header p {
+    margin: 0;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow:  7px 7px 14px #d5d5d5, 
+                -7px -7px 14px #ffffff;
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+}
+
+.card p {
+    margin: 5px 0;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.5s; }
+.card:nth-child(2) { animation-delay: 1s; }
+.card:nth-child(3) { animation-delay: 1.5s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
