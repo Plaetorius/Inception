@@ -10,10 +10,10 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./static:/var/www/static
-      - wordpress_data:/var/www/wordpress
+      # - wordpress_data:/var/www/wordpress
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
   
   portainer:
     image: portainer/portainer-ce
@@ -26,57 +26,37 @@ services:
       - portainer_data:/data
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
 
   mariadb:
+    image: mariadb:10.6.0-focal
     container_name: mariadb
-    build:
-      context: ./mariadb
-    ports:
-        - "3306"
-    env_file:
-      - ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=root_password_here
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress_password_here
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
     restart: unless-stopped
-  
+
   wordpress:
+    image: wordpress:latest
     container_name: wordpress
-    build:
-      context: ./wordpress
-    ports:
-        - "9000"
+    depends_on:
+      - mariadb
     environment:
-      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
-      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
-      AUTH_KEY: ${AUTH_KEY}
-      SECURE_AUTH_KEY: ${SECURE_AUTH_KEY}
-      LOGGED_IN_KEY: ${LOGGED_IN_KEY}
-      NONCE_KEY: ${NONCE_KEY}
-      AUTH_SALT: ${AUTH_SALT}
-      SECURE_AUTH_SALT: ${SECURE_AUTH_SALT}
-      LOGGED_IN_SALT: ${LOGGED_IN_SALT}
-      NONCE_SALT: ${NONCE_SALT}
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_password_here
+      WORDPRESS_DB_NAME: wordpress
     volumes:
       - wordpress_data:/var/www/html
     networks:
       - inception
-    depends_on:
-      - mariadb
-    restart: always
+    restart: unless-stopped
   
 networks:
   inception:
