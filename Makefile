@@ -12,4 +12,6 @@ down:
 logs:
 	docker compose -f srcs/docker-compose.yml  logs
 
-.PHONY: all build up down
+re: down all
+
+.PHONY: all re build up down
