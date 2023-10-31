@@ -9,6 +9,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "443:443"
+    env_file:
+      - .env
     networks:
       - inception
     depends_on:
@@ -23,9 +25,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3306:3306"
+    env_file:
+      - .env
     networks:
       - inception
     restart: unless-stopped
+    healthcheck:
+      test: mysqladmin ping --host=localhost -p${SQL_ROOT_PASSWORD}
+      interval: 5s
+      timeout: 1s
+      retries: 20
+      start_period: 5s
 
   wordpress:
     image: wordpress
@@ -35,10 +45,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "9000:9000"
+    env_file:
+      - .env
     networks:
       - inception
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     restart: unless-stopped
 
 networks:

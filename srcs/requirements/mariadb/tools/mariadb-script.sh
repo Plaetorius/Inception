@@ -15,16 +15,16 @@ done
 
 # Database and user setup
 mysql -uroot <<-EOSQL && echo -e "mariadb queries [\033[32mOK\033[0m]"
-    CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
-    CREATE USER IF NOT EXISTS \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-    GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO ${MYSQL_USER}@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+    CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;
+    CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';
+    GRANT ALL PRIVILEGES ON ${SQL_DATABASE}.* TO ${SQL_USER}@'%' IDENTIFIED BY '${SQL_PASSWORD}';
     FLUSH PRIVILEGES;
-    SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_PASSWORD}');
+    SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${SQL_ROOT_PASSWORD}');
     FLUSH PRIVILEGES;
 EOSQL
 
 # Clean stop MariaDB (avoid using tail -f, sleep)
-mysqladmin -uroot -p${MYSQL_ROOT_PASSWORD} shutdown
+mysqladmin -uroot -p${SQL_ROOT_PASSWORD} shutdown
 
 # Wait for MariaDB to finish shutting down
 wait "$pid"
