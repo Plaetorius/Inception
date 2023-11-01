@@ -11,6 +11,8 @@ services:
       - "443:443"
     env_file:
       - .env
+    volumes:
+      - wordpress-data:/var/www/html/wordpress/
     networks:
       - inception
     depends_on:
@@ -27,6 +29,8 @@ services:
       - "3306:3306"
     env_file:
       - .env
+    volumes:
+      - mariadb-data:/var/lib/mysql
     networks:
       - inception
     restart: unless-stopped
@@ -47,6 +51,8 @@ services:
       - "9000:9000"
     env_file:
       - .env
+    volumes:
+      - wordpress-data:/var/www/html/wordpress/
     networks:
       - inception
     depends_on:
@@ -58,4 +64,13 @@ networks:
   inception:
     driver: bridge
 
-# volumes:
+volumes:
+  wordpress-data:
+    driver: local
+    driver_opts:
+      device: '/home/tgernez/data/wordpress'
+  mariadb-data:
+    driver: local
+    driver_opts:
+      device: '/home/tgernez/data/mariadb'
+

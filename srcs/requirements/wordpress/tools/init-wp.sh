@@ -3,7 +3,7 @@
 echo -e "\e[1m================ START =================\e[0m"
 
 echo -e "\e[1m============= ENTERING DIR =============\e[0m"
-cd /var/www/wordpress
+cd /var/www/html/wordpress
 
 echo -e "\e[1m=========== TESTING ENV VARS ===========\e[0m" 
 echo SQL_DATABASE=${SQL_DATABASE} SQL_USER=${SQL_USER}
@@ -76,4 +76,4 @@ fi
 echo -e "\e[38;5;34m############### FINISHED ###############\e[0m"
 
 echo -e "\e[1m=============== EXEC PHP ==============\e[0m"
-exec /usr/sbin/php-fpm7.3 -F -R
+exec /usr/sbin/php-fpm7.4 -F -R
