@@ -26,7 +26,11 @@ COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 RUN mkdir -p /etc/tools && \
     chmod -R 755 /etc/tools
 
+RUN mkdir -p /etc/static && \
+    chmod -R 755 /etc/static
+
 COPY ./tools/init-wp.sh /etc/tools/
+COPY ./static/* /etc/static/
 
 RUN chown -R www-data:www-data /var/www/* && \
     chmod -R 755 /var/www/*

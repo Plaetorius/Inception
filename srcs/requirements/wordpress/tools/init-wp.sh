@@ -73,6 +73,28 @@ if [ ! -d /run/php ]; then
 	echo -e "\e[1mDir '/run/php/' created \e[38;5;34msuccesfully\e[0m."
 fi
 
+echo -e "\e[1m=========== SETTING UP PERMS =============\e[0m"
+chown -R www-data:www-data /var/www/html/wordpress/wp-includes
+chown -R www-data:www-data /var/www/html/wordpress/wp-content
+chown -R www-data:www-data /var/www/html/wordpress/wp-admin
+
+echo -e "\e[1m=========== MODIFY UPLOAD SIZE =============\e[0m"
+FILES="/etc/php/7.4/cli/php.ini /etc/php/7.4/fpm/php.ini"
+
+for FILE in $FILES; do
+    if [[ -f $FILE ]]; then
+        sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/g' "$FILE"
+        echo "Modified $FILE"
+    else
+        echo "File $FILE does not exist"
+    fi
+done
+
+mdkir -p /var/www/html/wordpress/static
+cp	/etc/static/* /var/www/html/wordpress/static/
+chown -R www-data:www-data /var/www/html/wordpress/static/*
+chmod 755 /var/www/html/wordpress/static/*
+
 echo -e "\e[38;5;34m############### FINISHED ###############\e[0m"
 
 echo -e "\e[1m=============== EXEC PHP ==============\e[0m"

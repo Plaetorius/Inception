@@ -21,8 +21,11 @@ RUN openssl req -x509 -nodes \
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 
+
 RUN chmod -R 755 /var/www/html/ && \
 	chown -R www-data:www-data /var/www/html/
+
+#BONUS: Static
 
 # Doesn't have any purpose besides describing
 EXPOSE 443

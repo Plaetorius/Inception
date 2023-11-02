@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.resume {
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 8px 8px 16px #bcbcbc, -8px -8px 16px #f4f4f4;
+    background-color: #e0e0e0;
+}
+
+.info-box {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #f4f4f4;
+}
+
+h1, h2 {
+    margin: 0;
+    color: #333;
+}
+
+p {
+    margin: 10px 0;
+    color: #555;
+}

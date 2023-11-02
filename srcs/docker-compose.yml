@@ -59,6 +59,20 @@ services:
       mariadb:
         condition: service_healthy
     restart: unless-stopped
+  
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "9001:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    networks:
+      - inception
+    restart: unless-stopped
+
 
 networks:
   inception:
@@ -73,4 +87,6 @@ volumes:
     driver: local
     driver_opts:
       device: '/home/tgernez/data/mariadb'
+  portainer-data:
+    driver: local
 
