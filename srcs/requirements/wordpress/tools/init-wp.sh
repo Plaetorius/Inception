@@ -13,17 +13,6 @@ grep "/run/mysqld/mysqld.sock" /etc/php/7.4/fpm/php.ini
 echo -e "\e[1m============== PINGING DB ==============\e[0m"
 echo ${SQL_HOST}
 
-#mysql ping -h mariadb -u${SQL_USER} -p${SQL_PASSWORD}i > /dev/null 2>&1
-#until mysqladmin ping --host=localhost -p${SQL_ROOT_PASSWORD}; do
-#	echo "Waiting for MariaDB to start..."
-#	sleep 1
-#done
-
-#while ! mysqladmin ping --silent; do
-#	echo "Waiting for MariaDB to start..."
-#	sleep 1
-#done
-
 echo -e "\e[1mMariaDB is \e[38;5;34mready\e[0m."
 
 echo -e "\e[1m========= CHECKING FOR WP CORE =========\e[0m"
@@ -92,7 +81,7 @@ done
 
 mdkir -p /var/www/html/wordpress/static
 cp	/etc/static/* /var/www/html/wordpress/static/
-chown -R www-data:www-data /var/www/html/wordpress/static/*
+chown -R www-data:www-data /var/www/html/wordpress/static/
 chmod 755 /var/www/html/wordpress/static/*
 
 echo -e "\e[38;5;34m############### FINISHED ###############\e[0m"
