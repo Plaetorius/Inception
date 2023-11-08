@@ -1,4 +1,9 @@
 #!/bin/bash
+# while ! mysqladmin ping --silent; do
+#     echo "Waiting for MariaDB to start..."
+#     sleep 2
+# done
+ sleep 10
 
 echo -e "\e[1m================ START =================\e[0m"
 
@@ -23,7 +28,10 @@ echo -e "\e[1m============ CONFIG CREATE =============\e[0m"
 		--dbuser=${SQL_USER} \
 		--dbpass=${SQL_PASSWORD} \
 		--dbhost=${SQL_HOST} \
-		--url=https://${DOMAIN_NAME};
+		--url=https://${DOMAIN_NAME}
+chown -R www-data:www-data wp-config.php
+chmod -R 755 wp-config.php
+ls -la
 
 echo -e "\e[1m============= CORE INSTALL =============\e[0m"
 	wp core install --allow-root \
@@ -31,13 +39,13 @@ echo -e "\e[1m============= CORE INSTALL =============\e[0m"
 		--title=${SITE_TITLE} \
 		--admin_user=${ADMIN_USER} \
 		--admin_password=${ADMIN_PASSWORD} \
-		--admin_email=${ADMIN_EMAIL};
+		--admin_email=${ADMIN_EMAIL}
 
 echo -e "\e[1m============= USER CREATE ==============\e[0m"
 	wp user create --allow-root \
 		${USER1_LOGIN} ${USER1_EMAIL} \
 		--role=author \
-		--user_pass=${USER1_PASSWORD};
+		--user_pass=${USER1_PASSWORD}
 
 echo -e "\e[1m============= CACHE FLUSH ==============\e[0m"
 	wp cache flush --allow-root
@@ -58,7 +66,7 @@ fi
 
 echo -e "\e[1m======== CHECKING FOR /run/php/ ========\e[0m"
 if [ ! -d /run/php ]; then
-	mkdir /run/php;
+	mkdir /run/php
 	echo -e "\e[1mDir '/run/php/' created \e[38;5;34msuccesfully\e[0m."
 fi
 

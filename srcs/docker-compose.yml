@@ -81,6 +81,8 @@ services:
     restart: unless-stopped
     networks:
       - inception
+    depends_on:
+      - wordpress
 
 networks:
   inception:
@@ -90,11 +92,16 @@ volumes:
   wordpress-data:
     driver: local
     driver_opts:
+      o: "bind"
+      type: "none"
       device: '/home/tgernez/data/wordpress'
   mariadb-data:
     driver: local
     driver_opts:
+      o: "bind"
+      type: "none"
       device: '/home/tgernez/data/mariadb'
   portainer-data:
     driver: local
+
 

@@ -3,7 +3,7 @@ FROM debian:bullseye
 # Install tools 
 RUN apt-get update && \
 	apt-get upgrade && \
-    apt-get install -y wget php php-fpm php-mysql mariadb-client default-mysql-client curl vim sudo && \
+    apt-get install -y wget php php-cgi php-fpm php-common php-mysql php-gd php-xml php-mbstring mariadb-client default-mysql-client curl vim sudo && \
     apt-get clean
 
 # Install Wordpress
