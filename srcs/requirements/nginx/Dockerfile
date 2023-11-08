@@ -20,8 +20,6 @@ RUN openssl req -x509 -nodes \
 # Copy nginx.conf file to the Docker image
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-
-
 RUN chmod -R 755 /var/www/html/ && \
 	chown -R www-data:www-data /var/www/html/
 
