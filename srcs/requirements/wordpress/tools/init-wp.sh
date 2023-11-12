@@ -87,7 +87,7 @@ for FILE in $FILES; do
     fi
 done
 
-mdkir -p /var/www/html/wordpress/static
+mkdir -p /var/www/html/wordpress/static
 cp	/etc/static/* /var/www/html/wordpress/static/
 chown -R www-data:www-data /var/www/html/wordpress/static/
 chmod 755 /var/www/html/wordpress/static/*
