@@ -60,8 +60,6 @@ echo -e "\e[1m======== DELETE USELESS PLUGINS ========\e[0m"
 	wp theme delete twentytwenty twentynineteen --allow-root
 	wp plugin delete hello --allow-root
 
-echo -e "\e[1m=========== REWRITE STRUCT =============\e[0m"
-	wp rewrite structure '/%postname%/' --allow-root
 fi
 
 echo -e "\e[1m======== CHECKING FOR /run/php/ ========\e[0m"
